@@ -1,17 +1,34 @@
 import pytest 
-from dymopy import __version__
+from dymopy.client import Dymo
+from dymopy.client import make_xml, make_params 
 
-def test_version():
-    assert __version__ == '0.1.0'
+def test_url(): 
+    dymo = Dymo()
+    assert dymo.uri == "https://127.0.0.1:41951/DYMO/DLS/Printing"
 
-def test_import(): 
-    import dymopy 
-    from dymopy import client 
-    dymopy.client.Dymo
+def test_status(): 
+    dymo = Dymo()
+    status = dymo.get_status()
+    assert isinstance(status, dict)
+    assert status['status_code'] == 200
 
-def test_connection(): 
-    from dymopy.client import Dymo
-    dymo = Dymo(host='https://192.168.14.143', port=41951)
-    assert dymo.uri == "https://192.168.14.143:41951/DYMO/DLS/Printing"
+def test_printer_name(): 
+    dymo = Dymo()
+    printer = dymo.get_printer()
+    assert isinstance(printer, dict)
+    assert printer['status_code'] == 200
 
+def test_xml(): 
+    label_params = make_params()
+    label_xml = make_xml("This is working?")
+    
+
+def test_printer_job(): 
+    dymo = Dymo()
+    label_params = make_params()
+    label_xml = make_xml('Hello', 'World!')
+    
+    print_resp = dymo.print(label_xml=label_xml, label_params=label_params)
+    assert print_resp.status_code == 200
+    
     
