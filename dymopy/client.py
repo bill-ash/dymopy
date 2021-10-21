@@ -171,11 +171,11 @@ def make_xml(top='Hello', bottom='World'):
 
     return resp.strip().replace('\n', '')
             
-def make_params(side="Left"): 
+def make_params(copies=1, side="Left"): 
     """
     Arguments: 
+        copies: str
         side:str 
         Choose the left or right side of the roll if using Dymo Twin Turbo.
     """
-    return '<LabelWriterPrintParams><TwinTurboRoll>{}</TwinTurboRoll></LabelWriterPrintParams>'.format(side)
- 
+    return f'<LabelWriterPrintParams><Copies>{str(copies)}</Copies><TwinTurboRoll>{str(side)}</TwinTurboRoll></LabelWriterPrintParams>'

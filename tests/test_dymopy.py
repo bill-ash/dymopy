@@ -28,7 +28,7 @@ def test_printer_job():
     label_params = make_params()
     label_xml = make_xml('Hello', 'World!')
     
-    print_resp = dymo.print(label_xml=label_xml, label_params=label_params)
-    assert print_resp.status_code == 200
+    # print_resp = dymo.print(label_xml=label_xml, label_params=label_params)
+    # assert print_resp.status_code == 200
     
     

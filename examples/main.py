@@ -7,15 +7,16 @@ app = FastAPI()
 dymo = Dymo()
 
 @app.post('/')
-def print(labelXml, printParams): 
-    label_xml = make_xml()
-    label_params = make_params()
-    # dymo.print()
-    return {
-        'Label': label_xml, 
-        'Params': label_params
-    }
+def print(top:str, bottom:str, copies: str, side:str): 
+    label_xml = make_xml(top=top, bottom=bottom)
+    label_params = make_params(copies=copies, side=side)
+    resp = dymo.print(label_xml=label_xml, label_params=label_params)
+    
+    if resp.status_code == 200: 
+        return True
+    else: 
+        return False
 
 if __name__ == "__main__": 
-    uvicorn.run("main:app", host="127.0.0.1", port=5000, log_level="info")
+    uvicorn.run("main:app", host="127.0.0.1", port=3000, log_level="info")
 
